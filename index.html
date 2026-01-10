@@ -3,15 +3,36 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="theme-color" content="#4338ca" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <title>PassaAê - Estudos para Concursos</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+      :root {
+        --sat: env(safe-area-inset-top);
+        --sar: env(safe-area-inset-right);
+        --sab: env(safe-area-inset-bottom);
+        --sal: env(safe-area-inset-left);
+      }
+
       body {
         font-family: 'Inter', sans-serif;
-        background-color: #f8fafc;
+        background-color: #4338ca; /* Indigo 700 fixo para o "fundo" do APK */
         -webkit-tap-highlight-color: transparent;
+        overflow: hidden;
+        height: 100vh;
+        width: 100vw;
+        margin: 0;
+        padding: 0;
+      }
+
+      #root {
+        height: 100%;
+        width: 100%;
+        background-color: #f8fafc;
       }
       
       /* Scrollbar Customizada para áreas de texto longas */
@@ -29,6 +50,11 @@
       .custom-scrollbar::-webkit-scrollbar-thumb:hover {
         background: rgba(255, 255, 255, 0.5);
       }
+
+      /* Fix para o header respeitar o Notch do celular */
+      header {
+        padding-top: calc(1rem + var(--sat)) !important;
+      }
     </style>
   <script type="importmap">
 {
@@ -43,10 +69,9 @@
   }
 }
 </script>
-<link rel="stylesheet" href="/index.css">
 </head>
   <body>
     <div id="root"></div>
-  <script type="module" src="/index.tsx"></script>
-</body>
+    <script type="module" src="index.tsx"></script>
+  </body>
 </html>
