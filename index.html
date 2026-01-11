@@ -13,48 +13,40 @@
     <style>
       :root {
         --sat: env(safe-area-inset-top);
-        --sar: env(safe-area-inset-right);
         --sab: env(safe-area-inset-bottom);
-        --sal: env(safe-area-inset-left);
       }
 
       body {
         font-family: 'Inter', sans-serif;
-        background-color: #4338ca; /* Indigo 700 fixo para o "fundo" do APK */
+        background-color: #f8fafc;
         -webkit-tap-highlight-color: transparent;
-        overflow: hidden;
-        height: 100vh;
-        width: 100vw;
         margin: 0;
         padding: 0;
+        /* Garante que o fundo não "pule" em dispositivos mobile */
+        overscroll-behavior-y: none;
       }
 
+      /* Estilo para garantir que o app ocupe a tela toda */
       #root {
-        height: 100%;
-        width: 100%;
-        background-color: #f8fafc;
+        min-height: 100dvh;
+        display: flex;
+        flex-direction: column;
       }
       
-      /* Scrollbar Customizada para áreas de texto longas */
       .custom-scrollbar::-webkit-scrollbar {
         width: 4px;
       }
       .custom-scrollbar::-webkit-scrollbar-track {
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 10px;
+        background: transparent;
       }
       .custom-scrollbar::-webkit-scrollbar-thumb {
-        background: rgba(255, 255, 255, 0.3);
+        background: rgba(67, 56, 202, 0.2);
         border-radius: 10px;
       }
-      .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-        background: rgba(255, 255, 255, 0.5);
-      }
 
-      /* Fix para o header respeitar o Notch do celular */
-      header {
-        padding-top: calc(1rem + var(--sat)) !important;
-      }
+      /* Padding especial para dispositivos com Notch */
+      .safe-top { padding-top: var(--sat); }
+      .safe-bottom { padding-bottom: var(--sab); }
     </style>
   <script type="importmap">
 {
