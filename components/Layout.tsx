@@ -11,37 +11,46 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children, title, onBack, showBack = true }) => {
   return (
-    <div className="min-h-screen w-full flex flex-col bg-slate-50">
-      {/* Header Fixo com suporte a Safe Area Top */}
-      <header className="bg-indigo-700 text-white shadow-lg sticky top-0 z-50 safe-top">
-        <div className="px-4 py-4 flex items-center h-16">
-          {showBack && onBack ? (
-            <button 
-              onClick={onBack} 
-              className="mr-3 p-2 rounded-full active:bg-indigo-800 active:scale-90 transition-all"
-            >
-              <ChevronLeft size={24} />
-            </button>
-          ) : (
-            <div className="w-4" />
-          )}
-          <h1 className="text-lg font-bold flex-1 text-center truncate pr-8">{title}</h1>
+    <div className="flex flex-col min-h-screen w-full bg-slate-50">
+      {/* Header Acadêmico Clean */}
+      <header className="bg-white border-b border-slate-200 sticky top-0 z-50 safe-top">
+        <div className="px-4 h-16 flex items-center justify-between">
+          <div className="w-10">
+            {showBack && onBack && (
+              <button 
+                onClick={onBack} 
+                className="p-2 rounded-xl hover:bg-slate-100 active:scale-90 transition-all text-slate-600"
+              >
+                <ChevronLeft size={24} />
+              </button>
+            )}
+          </div>
+          
+          <h1 className="text-sm font-extrabold text-slate-800 uppercase tracking-tight truncate max-w-[200px]">
+            {title}
+          </h1>
+
+          <div className="w-10 flex justify-end">
+            <div className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse" />
+          </div>
         </div>
       </header>
 
-      {/* Conteúdo flexível que cresce conforme necessário */}
-      <main className="flex-1 w-full max-w-md mx-auto p-4 safe-bottom">
-        <div className="animate-in fade-in slide-in-from-bottom-2 duration-500">
+      {/* Main Container */}
+      <main className="flex-1 w-full max-w-md mx-auto p-5 pb-20">
+        <div className="animate-in fade-in duration-500">
           {children}
         </div>
       </main>
 
-      {/* Footer minimalista fixo no fundo da página */}
-      <footer className="p-4 text-center">
-        <p className="text-[10px] font-bold text-slate-300 uppercase tracking-widest">
-          PassaAê • Tecnologia para Aprovação
-        </p>
-      </footer>
+      {/* Badge de Rodapé */}
+      <div className="fixed bottom-0 left-0 right-0 p-4 pointer-events-none flex justify-center">
+        <div className="bg-slate-900/5 backdrop-blur-md px-3 py-1 rounded-full border border-slate-200">
+          <p className="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em]">
+            PassaAê Digital
+          </p>
+        </div>
+      </div>
     </div>
   );
 };

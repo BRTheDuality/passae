@@ -6,7 +6,7 @@ import {
   where,
   addDoc,
   serverTimestamp
-} from 'firebase/firestore/lite';
+} from 'firebase/firestore';
 import { GoogleGenAI } from "@google/genai";
 
 import { db } from '../firebase';
@@ -56,7 +56,6 @@ export const getQuestions = async (
     const q = query(collection(db, 'questoes'), ...constraints);
     const snapshot = await getDocs(q);
     
-    // Fix: Explicitly mapping each field and using a typed array to resolve the 'unknown[]' and missing properties error
     const results: Question[] = snapshot.docs.map(doc => {
       const data = doc.data() as any;
       return {
@@ -110,26 +109,29 @@ export const getPerformance = (): PerformanceStats => {
 };
 
 export const getAIExplanation = async (enunciado: string, resposta: string, comentario: string): Promise<string> => {
+  const key = process.env.API_KEY;
+  
+  if (!key) {
+    return "O Tutor IA está configurando os livros. (Chave de API não encontrada)";
+  }
+
   try {
-    // Fix: Initializing GoogleGenAI with process.env.API_KEY as per guidelines
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    const ai = new GoogleGenAI({ apiKey: key });
     
-    // Fix: Using 'gemini-3-pro-preview' for complex reasoning task of explaining exam questions
     const response = await ai.models.generateContent({
-      model: 'gemini-3-pro-preview',
-      contents: [{
-        parts: [{
-          text: `Você é o Professor PassaAê, especialista em concursos. 
-          Explique didaticamente por que a resposta correta é "${resposta}".
-          Questão: ${enunciado}
-          Comentário base: ${comentario}`
-        }]
-      }],
+      model: 'gemini-3-flash-preview',
+      contents: `Você é o Professor PassaAê, tutor especializado em concursos públicos. 
+          Explique de forma didática e objetiva por que a resposta correta para a questão abaixo é "${resposta}".
+          
+          ENUNCIADO: ${enunciado}
+          DICA TÉCNICA: ${comentario}
+          
+          Sua explicação deve ser curta, motivadora e focada na lógica da aprovação.`,
     });
 
-    return response.text || "Não consegui gerar a explicação no momento.";
-  } catch (error) {
+    return response.text || "Não foi possível gerar a explicação agora.";
+  } catch (error: any) {
     console.error("Erro Gemini:", error);
-    return "O Tutor IA encontrou um erro técnico ao processar sua explicação. Verifique sua conexão ou tente mais tarde.";
+    return `O Professor IA teve um imprevisto técnico. Tente novamente em breve.`;
   }
 };
