@@ -3,71 +3,48 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-    <meta name="theme-color" content="#0f172a" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PassaAê - Estudos para Concursos</title>
-    
-    <script>
-      // Shim robusto para variáveis de ambiente
-      window.process = { env: { API_KEY: "" } };
-    </script>
-
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-      :root {
-        --sat: env(safe-area-inset-top);
-        --sab: env(safe-area-inset-bottom);
-      }
       body {
         font-family: 'Inter', sans-serif;
         background-color: #f8fafc;
-        margin: 0;
-        color: #1e293b;
-        -webkit-font-smoothing: antialiased;
-        overflow-x: hidden;
+        -webkit-tap-highlight-color: transparent;
       }
-      #root {
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
+      
+      /* Scrollbar Customizada para áreas de texto longas */
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 4px;
       }
-      .academic-card {
-        background: white;
-        border: 1px solid #e2e8f0;
-        border-radius: 1rem;
-        box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
       }
-      /* Previne o flicker branco durante o carregamento dos módulos */
-      body:not(:defined) {
-        visibility: hidden;
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 10px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 255, 255, 0.5);
       }
     </style>
-
-    <script type="importmap">
+  <script type="importmap">
 {
   "imports": {
-    "react": "https://esm.sh/react@18.3.1",
-    "react-dom": "https://esm.sh/react-dom@18.3.1",
-    "react-dom/client": "https://esm.sh/react-dom@18.3.1/client",
-    "lucide-react": "https://esm.sh/lucide-react@0.460.0?external=react",
-    "recharts": "https://esm.sh/recharts@2.13.3?external=react,react-dom",
-    "firebase/app": "https://esm.sh/firebase@11.1.0/app",
-    "firebase/firestore": "https://esm.sh/firebase@11.1.0/firestore",
-    "@google/genai": "https://esm.sh/@google/genai@0.2.1",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
     "react/": "https://esm.sh/react@^19.2.3/",
-    "firebase/": "https://esm.sh/firebase@^12.7.0/"
+    "react": "https://esm.sh/react@^19.2.3",
+    "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "recharts": "https://esm.sh/recharts@^3.6.0",
+    "firebase/": "https://esm.sh/firebase@^12.7.0/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.35.0"
   }
 }
 </script>
-  </head>
+</head>
   <body>
     <div id="root"></div>
-    <script type="module" src="index.tsx"></script>
   </body>
 </html>
